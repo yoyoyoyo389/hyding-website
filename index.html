@@ -87,7 +87,19 @@ footer .t{font-family:'Cormorant SC',serif;letter-spacing:.3em;text-indent:.3em;
 footer .meta{color:#6B7280;font-size:13px;margin-top:14px;letter-spacing:.08em;}
 footer .meta a{color:#8B93A3;}
 footer .meta a:hover{color:var(--champagne);}
-@media (max-width:640px){nav{padding:14px 18px;}nav .links{gap:16px;font-size:12.5px;}section{padding:72px 20px;}}
+.nav-burger{display:none;background:none;border:none;cursor:pointer;padding:10px;z-index:70;position:relative;}
+.nav-burger span{display:block;width:24px;height:1.6px;background:var(--champagne);transition:transform .3s,opacity .3s;margin:5px 0;}
+.nav-burger.open span:nth-child(1){transform:translateY(6.6px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.6px) rotate(-45deg);}
+@media (max-width:640px){
+  nav{padding:14px 18px;}
+  section{padding:72px 20px;}
+  .nav-burger{display:block;} nav{backdrop-filter:none;}
+  nav .links{position:fixed;inset:0;background:rgba(24,28,35,.98);flex-direction:column;align-items:center;justify-content:center;
+    gap:36px;font-size:18px;letter-spacing:.3em;display:none;z-index:60;}
+  nav .links.open{display:flex;}
+}
 .chat-fab{position:fixed;right:24px;bottom:24px;z-index:50;width:58px;height:58px;border-radius:50%;
   background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
   box-shadow:0 8px 24px rgba(0,0,0,.4);transition:transform .25s,background .25s;}
@@ -125,11 +137,14 @@ footer .meta a:hover{color:var(--champagne);}
     <svg><use href="#hd"/></svg>
     <span class="t sc">HYDING</span>
   </a>
-  <div class="links sc">
+  <div class="links sc" id="navlinks">
     <a href="#services">SERVICES</a>
     <a href="#contact">CONTACT</a>
     <a href="/tw/" lang="zh-Hant" style="font-family:inherit;">中文</a>
   </div>
+  <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <header class="hero" id="top">
@@ -207,6 +222,14 @@ footer .meta a:hover{color:var(--champagne);}
   if(el){ el.textContent=e; el.setAttribute("href", r("otliam")+String.fromCharCode(58)+e); }
   var cm=document.getElementById("chat-mail");
   if(cm){ cm.textContent=e; cm.setAttribute("href", r("otliam")+String.fromCharCode(58)+e); }
+  var burger=document.getElementById("nav-burger"), navlinks=document.getElementById("navlinks");
+  if(burger&&navlinks){
+    burger.addEventListener("click", function(){
+      var o=navlinks.classList.toggle("open"); burger.classList.toggle("open", o);
+      burger.setAttribute("aria-expanded", o?"true":"false");
+    });
+    navlinks.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ navlinks.classList.remove("open"); burger.classList.remove("open"); burger.setAttribute("aria-expanded","false"); }); });
+  }
   var fab=document.getElementById("chat-fab"), pop=document.getElementById("chat-pop"), cc=document.getElementById("chat-close");
   if(fab&&pop){
     fab.addEventListener("click", function(){ var o=pop.classList.toggle("open"); fab.setAttribute("aria-expanded", o?"true":"false"); });
