@@ -176,6 +176,31 @@ details summary:hover{color:var(--champagne);}
 .step h4{font-size:17px;letter-spacing:.14em;margin:10px 0 6px;font-weight:500;}
 .step p{color:var(--mist);font-size:13.5px;margin:0;line-height:1.9;}
 
+/* ---- contact form ---- */
+.form{max-width:620px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.fld{display:flex;flex-direction:column;gap:9px;}
+.fld.full{grid-column:1 / -1;}
+.fld label{font-family:'Cormorant SC',serif;font-size:12px;letter-spacing:.32em;color:var(--gold);}
+.fld input,.fld select,.fld textarea{
+  background:var(--navy-deep);border:1px solid var(--navy-line);color:var(--paper);
+  padding:14px 16px;font-family:inherit;font-size:15.5px;letter-spacing:.04em;border-radius:0;
+  transition:border-color .25s;appearance:none;-webkit-appearance:none;
+}
+.fld select{background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);
+  background-position:calc(100% - 21px) 50%,calc(100% - 16px) 50%;background-size:5px 5px;background-repeat:no-repeat;cursor:pointer;}
+.fld textarea{min-height:150px;resize:vertical;line-height:1.9;}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--gold);}
+.fld input::placeholder,.fld textarea::placeholder{color:#5C6474;}
+.form .ts{grid-column:1 / -1;display:flex;justify-content:center;min-height:66px;}
+.form .submit{grid-column:1 / -1;text-align:center;}
+.form .submit button{cursor:pointer;font-family:inherit;background:var(--gold);color:var(--navy);border:1px solid var(--gold);
+  padding:14px 56px;font-size:15px;letter-spacing:.3em;text-indent:.3em;transition:background .3s,color .3s,opacity .3s;}
+.form .submit button:hover{background:transparent;color:var(--champagne);}
+.form .submit button:disabled{opacity:.5;cursor:wait;}
+.cf-status{grid-column:1 / -1;text-align:center;color:var(--mist);font-size:13.5px;letter-spacing:.06em;min-height:1.5em;}
+.cf-done{grid-column:1 / -1;text-align:center;color:var(--champagne);font-size:17px;letter-spacing:.1em;padding:48px 0;}
+.alt-mail{text-align:center;margin-top:52px;padding-top:40px;border-top:1px solid var(--navy-line);}
+
 /* ---- contact ---- */
 .c-grid{display:flex;flex-wrap:wrap;gap:54px;justify-content:center;text-align:center;}
 .c-item{min-width:220px;}
@@ -523,17 +548,53 @@ footer{background:var(--navy-dark);border-top:1px solid rgba(169,139,82,.25);pad
   </div>
   <section>
     <div class="inner">
-      <div class="c-grid">
-        <div class="c-item">
-          <svg><use href="#ic-mail"/></svg>
-          <div class="k">EMAIL</div>
-          <div class="v"><a id="ml" href="#contact" rel="nofollow"><noscript>請開啟 JavaScript 以顯示信箱</noscript></a></div>
-          <div class="hint">品牌設計．網站平台．AI 導入．國際化與進出口洽詢</div>
+      <form class="form" id="cform" novalidate>
+        <div class="fld">
+          <label for="f-name">姓名 NAME *</label>
+          <input id="f-name" type="text" placeholder="怎麼稱呼您" required maxlength="100">
+        </div>
+        <div class="fld">
+          <label for="f-email">電子郵件 EMAIL *</label>
+          <input id="f-email" type="email" placeholder="回覆將寄到這裡" required maxlength="200">
+        </div>
+        <div class="fld full">
+          <label for="f-co">公司 COMPANY</label>
+          <input id="f-co" type="text" placeholder="公司或品牌名稱（選填）" maxlength="200">
+        </div>
+        <div class="fld full">
+          <label for="f-topic">洽詢項目 SUBJECT</label>
+          <select id="f-topic">
+            <option>品牌設計</option>
+            <option>形象網站架設</option>
+            <option>客製化網站與平台</option>
+            <option>AI 應用導入</option>
+            <option>產業數位轉型顧問</option>
+            <option>國際化與進出口</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="fld full">
+          <label for="f-msg">需求說明 MESSAGE *</label>
+          <textarea id="f-msg" placeholder="簡單描述您的需求、目前的狀況與期望的時程" required maxlength="5000"></textarea>
+        </div>
+        <div class="ts"><div class="cf-turnstile" data-sitekey="0x4AAAAAAEORpzEdlAkBlBH3" data-theme="dark"></div></div>
+        <div class="submit"><button type="submit" id="cf-submit">送出洽詢</button></div>
+        <div class="cf-status" id="cf-status"></div>
+      </form>
+      <div class="alt-mail">
+        <div class="c-grid">
+          <div class="c-item">
+            <svg><use href="#ic-mail"/></svg>
+            <div class="k">EMAIL</div>
+            <div class="v"><a id="ml" href="#contact" rel="nofollow"><noscript>請開啟 JavaScript 以顯示信箱</noscript></a></div>
+            <div class="hint">也可以直接來信洽詢</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 </main>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <footer>
   <div class="f-cols">
@@ -587,6 +648,28 @@ footer{background:var(--navy-dark);border-top:1px solid rgba(169,139,82,.25);pad
   var e=r("ofni")+String.fromCharCode(64)+r("gnidyh")+String.fromCharCode(46)+r("moc");
   var el=document.getElementById("ml");
   if(el){ el.textContent=e; el.setAttribute("href", r("otliam")+String.fromCharCode(58)+e); }
+  var f=document.getElementById("cform");
+  if(f){
+    f.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var btn=document.getElementById("cf-submit"), st=document.getElementById("cf-status");
+      var tk=(window.turnstile && window.turnstile.getResponse()) || "";
+      if(!tk){ st.textContent="安全驗證載入中，請稍候幾秒再送出"; return; }
+      btn.disabled=true; st.textContent="傳送中…";
+      fetch("/api/contact",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({
+        name:document.getElementById("f-name").value,
+        email:document.getElementById("f-email").value,
+        company:document.getElementById("f-co").value,
+        topic:document.getElementById("f-topic").value,
+        message:document.getElementById("f-msg").value,
+        token:tk
+      })}).then(function(r){return r.json();}).then(function(d){
+        if(d.ok){ f.innerHTML='<div class="cf-done">✦ 已送出，我們將盡快回覆您</div>'; }
+        else{ st.textContent="送出失敗，請改用下方信箱來信"; btn.disabled=false; if(window.turnstile)window.turnstile.reset(); }
+      }).catch(function(){ st.textContent="連線失敗，請改用下方信箱來信"; btn.disabled=false; if(window.turnstile)window.turnstile.reset(); });
+    });
+  }
+
   var cm=document.getElementById("chat-mail");
   if(cm){ cm.textContent=e; cm.setAttribute("href", r("otliam")+String.fromCharCode(58)+e); }
   var fab=document.getElementById("chat-fab"), pop=document.getElementById("chat-pop"), cc=document.getElementById("chat-close");
