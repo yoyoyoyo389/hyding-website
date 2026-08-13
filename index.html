@@ -101,6 +101,14 @@ section{padding:100px 24px;}
 .contact .v{font-size:19px;margin-top:6px;}
 .contact .v a:hover{color:var(--champagne);}
 .contact .hint{color:var(--mist);font-size:14px;margin-top:14px;letter-spacing:.06em;}
+/* ---- privacy notice（footer 連結才展開） ---- */
+#privacy{display:none;}
+#privacy:target{display:block;}
+.legal{max-width:640px;margin:0 auto;text-align:left;}
+.legal h3{font-family:'Cormorant SC',serif;font-size:15px;letter-spacing:.18em;color:var(--gold);margin:38px 0 12px;font-weight:500;}
+.legal h3:first-child{margin-top:0;}
+.legal p{color:#B9BEC9;font-size:15px;line-height:2;margin:0 0 8px;}
+.legal .upd{color:#6B7280;font-size:12.5px;margin-top:40px;letter-spacing:.08em;}
 footer{background:var(--navy-dark);border-top:1px solid rgba(169,139,82,.25);padding:54px 24px;text-align:center;}
 footer .mono{width:40px;height:40px;color:var(--mist);margin:0 auto;display:block;}
 footer .t{font-family:'Cormorant SC',serif;letter-spacing:.3em;text-indent:.3em;font-size:14px;margin-top:12px;color:var(--mist);}
@@ -244,10 +252,33 @@ footer .meta a:hover{color:var(--champagne);}
 </section>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
+<section id="privacy">
+  <div class="inner">
+    <div class="sec-head">
+      <div class="en">PRIVACY</div>
+      <h2>Privacy Notice</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="legal">
+      <h3>Who we are</h3>
+      <p>This site is operated by HyDing Information Co., Ltd. (Taiwan unified business no. 89126137). For any privacy question, reach us through the contact form above.</p>
+      <h3>What we collect</h3>
+      <p>Only what you actively submit through the contact form — your name, email, company and message. There are no accounts, no sign-ups and no background profiling.</p>
+      <h3>How it is used</h3>
+      <p>Form submissions are used solely to reply to your inquiry and for related follow-up. They are never added to marketing lists, shared with or sold to third parties. Messages are kept in our company mailbox and are not otherwise processed.</p>
+      <h3>Cookies &amp; tracking</h3>
+      <p>This site sets no analytics, advertising or tracking cookies. The contact form is protected by Cloudflare Turnstile and the site is served through Cloudflare, which may set strictly necessary security cookies; these do not track you across sites, so no consent banner is required.</p>
+      <h3>Your rights</h3>
+      <p>You may request access to, correction or deletion of any data you have sent us at any time.</p>
+      <p class="upd">Last updated: August 2026</p>
+    </div>
+  </div>
+</section>
+
 <footer>
   <svg class="mono"><use href="#hd"/></svg>
   <div class="t">HYDING</div>
-  <div class="meta">© 2026 HyDing. Made to Measure. · <a href="/tw/" lang="zh-Hant">繁體中文</a></div>
+  <div class="meta">© 2026 HyDing. Made to Measure. · <a href="#privacy">Privacy</a> · <a href="/tw/" lang="zh-Hant">繁體中文</a></div>
 </footer>
 
 <button class="chat-fab" id="chat-fab" aria-label="Live support" aria-expanded="false">
